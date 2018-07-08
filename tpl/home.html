@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Metrostroi &raquo; <?php echo _('Главная') ?></title>
+
+    <link rel="stylesheet" href="dist/semantic4.css" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="dist/semantic.js"></script>
+    
+    <style>
+      .ui.inverted.vertical.segment {
+        box-shadow: inset 0 0 170px 170px #222629;
+        background-color: #2e495c;
+        background-image: url(/tpl/img/background.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 100vh;
+      }
+      
+      .ui.inverted.vertical.segment .ui.container {
+        width: 900px;
+      }
+      
+      .ui.inverted.vertical.segment .ui.menu {
+        background-color: transparent;
+      }
+      
+      .ui.inverted.vertical.segment .item {
+        font-size: 0.8em;
+      }
+      
+      .ui.secondary.inverted.pointing.menu .item {
+        color: rgba(255, 255, 255, 0.9) !important;
+      }
+      
+      .ui.secondary.inverted.pointing.menu .dropdown .item {
+        color: rgba(0, 0, 0, 0.87) !important;
+      }
+      
+      .ui.inverted.vertical.segment .ui.lead.container {
+        position: absolute;
+        height: 300px;
+        width: 800px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+      }
+      
+      .ui.inverted.vertical.segment .ui.lead.container h1.header {
+        font-size: 3em;
+      }
+      
+      .ui.inverted.vertical.segment .ui.lead.container p {
+        font-size: 1.6em;
+        line-height: 1.6;
+      }
+      
+      .ui.inverted.vertical.segment .ui.footer.segment {
+        height: 80px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        font-size: 1.2em;
+        background-color: transparent;
+      }
+      
+      .ui.inverted.vertical.segment .ui.footer.segment a {
+        color: white;
+      }
+      
+      .ui.steam.button {
+        background-color: #1b0252;
+        color: #fff;
+      }
+
+      .ui.steam.button:hover {
+        background-color: #140044;
+        color: #fff;
+      }
+
+      .ui.steam.button:active {
+        background-color: #0d002b;
+        color: #fff;
+      }
+    </style>
+	
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);<?php if ($logged_user) {?>
+		_paq.push(["setUserId","<?php echo $logged_user->steamid() ?>"]);<?php } ?>
+        (function() {
+            var u="//anal.metrostroi.net/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+  </head>
+
+  <body class="template">
+    <div class="ui inverted vertical center aligned segment">
+      <div class="ui container">
+        <div class="ui massive borderless inverted menu">
+          <div class="item">
+            <div class="ui massive secondary inverted pointing menu">
+              <a class="active item">Metrostroi</a>
+            </div>
+          </div>
+          <div class="right item">
+            <div class="ui massive secondary inverted pointing menu">
+              <?php echo $menu->show('home')?>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui lead container">
+        <h1 class="ui inverted header">
+          <?php echo _('Ваш виртуальный метрополитен') ?>
+        </h1>
+        <p>
+          <?php echo _("Metrostroi &mdash; это мод для игры Garry's Mod, играя в который вы можете почувствовать себя машинистом в кабине настоящего электропоезда.") ?>
+        </p>
+        <div class="ui large buttons">
+          <a href="https://wiki.metrostroi.net/wiki/Установка" class="ui green button"><i class="download icon"></i><?php echo _('Руководство по скачиванию') ?></a>
+          <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=261801217" class="ui steam button"><i class="steam icon" style="margin: 0 !important;"></i></a>
+          <a href="https://vk.com/metrostroi_official" class="ui vk button"><i class="vk icon" style="margin: 0 !important;"></i></a>
+          <a href="https://fb.com/metrostroiofficial" class="ui facebook button"><i class="facebook f icon" style="margin: 0 !important;"></i></a>
+        </div>
+      </div>
+      <div class="ui inverted vertical footer segment">
+        Mod by Black Phoenix, glebqip and oldy, site by Serpentiel, HellReach and PolarWolf<br>
+      </div>
+    </div>
+    
+    <script>
+      $('.ui.dropdown').dropdown();
+    </script>
+  </body>
+</html>

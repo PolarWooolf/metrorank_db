@@ -1,0 +1,26 @@
+<?php
+		$iconsarr = (is_array(json_decode($typical_ple['icon'])))? json_decode($typical_ple['icon']): array((object) array('id' => $typical_ple['icon']));;
+		foreach ($servers as $key => $sv)
+		{
+			if ($sv['owner'] == $typical_ple['SID'] and $sv['active'] and $sv['show_for_everyone'] and !$sv['deleted'])
+			{
+				$iconsarr[] = (object) array('id'=>'6');
+			}
+		}
+?>
+                  <tr>
+                    <td>
+                      <img class="ui avatar image" src="<?php echo $typical_ple['avatar_url'] ?>">
+                      <span>
+                        <a href="/profile/<?php echo $typical_ple['SID'] ?>"><?php echo (($typical_ple['nickname'] != NULL)?  $typical_ple['nickname']: $typical_ple['SID']) ?></a> <a class="blacklink" href="<?php echo ("http://steamcommunity.com/profiles/" . Base::ToCommunityID($typical_ple['SID'])) ?>"><i class="steam icon"></i></a> <?php echo User::ShowIcons($iconsarr) ?>
+                      </span>
+                    </td>
+                    <td>
+                      <div class="ui middle aligned list">
+                        <div class="item">
+						  <?php if (User::ShowRankIcon($typical_ple['txtid'])) { ?><img class="ui image" src="<?php echo User::ShowRankIcon($typical_ple['txtid']) ?>" height="32"><?php } ?>
+                          <div class="content"><?php echo $groups[$typical_ple['txtid']] ?></div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>

@@ -1,0 +1,67 @@
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><i class="checkmark box icon"></i> <?php echo $test['trname'] ?></div>
+
+			  <p>
+                <center>
+                  <? echo _('Ответы на тест получены ') ?><?php echo date("d.m.Y в H:i", strtotime($test['completed_date'])) ?>,
+                  <? echo _('тест решен за ') ?><?php echo ((int)((strtotime($test['completed_date']) - strtotime($test['recived_date']))/60)) . ":" . str_pad((strtotime($test['completed_date']) - strtotime($test['recived_date']))%60, 2, 0, STR_PAD_LEFT) ?>,
+                  <? echo _('тест решал ') ?><a href="/profile/<?php echo $test['student'] ?>"><?php echo htmlspecialchars($test['student_nickname']) ?></a><br><br>
+                  <?php if ($test['status'] == 3) { ?>Тест был проверен инструктором <a href="/profile/<?php echo $test['reviewer'] ?>"><?php echo htmlspecialchars($test['reviewer_nickname']) ?></a> <?php echo date("d.m.Y в H:i", strtotime($test['review_date'])) ?>, выставленная оценка: <?php echo $rating[$test['passed']] ?>.<br><br><?php } ?>
+                </center>
+              </p>
+
+              <form method="post">
+			    <div class="ui form">
+                  <div class="field" style="margin-bottom: 30px;">
+                    <label style="text-align: center;"><?php echo _('Комментарий инструктора:') ?></label>
+                    <textarea name="note" style="margin-top: 0px; margin-bottom: 0px; margin-bottom: 0px;" rows="4"><?php echo htmlspecialchars($test['note']) ?></textarea>
+                  </div>
+				  <?php foreach ($questions as $number => $question) { ?>
+                  <div class="field">
+                    <label style="text-align: center;">
+                      <?php echo $question ?>
+
+                      <div class="ui compact icon basic top left pointing dropdown button" style="margin-left: 10px;">
+                        <input type="hidden" name="<?php echo 'mark' . $number ?>" <?php if($answers_marks and (isset($answers->$number) or isset($answers[$number]))) echo 'value="'.$marks_num[((isset($answers_marks->$number))?$answers_marks->$number:$answers_marks[$number])].'"' ?>>
+                        <div class="default text"><i class='clock icon' style='margin-right: 0;'></i></div>
+                        <div class="menu">
+                          <div class="item" data-value="0" data-text="<i class='check icon' style='color: #3c763d; margin-right: 0;'></i>"><i class="check icon" style="color: #3c763d;"></i> <?php echo _('Ответ верен') ?></div>
+                          <div class="item" data-value="1" data-text="<i class='radio icon' style='color: #f0ad4e; margin-right: 0;'></i>"><i class="radio icon" style="color: #f0ad4e;"></i> <?php echo _('Ответ частично верен') ?></div>
+                          <div class="item" data-value="2" data-text="<i class='remove icon' style='color: #a94442; margin-right: 0;'></i>"><i class="remove icon" style="color: #a94442;"></i> <?php echo _('Ответ неверен') ?></div>
+                          <div class="item" data-value="3" data-text="<i class='legal icon' style='margin-right: 0;'></i>"><i class="legal icon"></i> <?php echo _('Ответ списан') ?></div>
+                          <div class="item" data-value="4" data-text="<i class='flag icon' style='margin-right: 0;'></i>"><i class="flag icon"></i> <?php echo _('Ответ не учитывается') ?></div>
+                        </div>
+                      </div>
+                    </label>
+                    <textarea style="margin-top: 0px; margin-bottom: 0px; <?php if($answers_marks and (isset($answers->$number) or isset($answers[$number]))) echo ' border-color: '.$marks_color[((isset($answers_marks->$number))?$answers_marks->$number:$answers_marks[$number])].';' ?>" rows="4" readonly><?php echo htmlspecialchars(($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') ?></textarea>
+				    <?php if (preg_match('/[\x{003B}\x{00A9}-\x{00BB}\x{02B9}-\x{02C1}\x{02CA}-\x{036E}\x{0374}\x{0375}\x{1FFD}-\x{205F}]/mu',($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') > 0) { ?>
+                    <center>
+                      <div class="ui middle aligned horizontal list">
+                        <div class="item">
+                          <div class="ui red basic label" style="margin-top: 10px;"><i class="warning icon"></i> <?php echo _('Данный ответ содержит типографические символы и возможно был списан.') ?></div>
+                        </div>
+
+                        <div class="item">
+                          <div class="ui small buttons">
+                            <a class="ui button" href="http://wiki.nashtransport.ru/wiki/Правила_технической_эксплуатации_метрополитенов_РФ">ПТЭ</a>
+                            <a class="ui button" href="http://wiki.nashtransport.ru/wiki/Инструкция_по_сигнализации_на_метрополитенах_РФ">ИСИ</a>
+                            <a class="ui button" href="http://wiki.nashtransport.ru/wiki/Инструкция_по_движению_поездов_и_маневровой_работе_на_метрополитенах_РФ">ИДП</a>
+                          </div>
+                        </div>
+                      </div>
+                    </center>
+				    <?php } ?>
+				  </div>
+			  	<?php } ?>
+                  <div class="field">
+                    <center>
+                      <div class="ui buttons">
+                        <button class="ui positive button" type="submit" name="submit" value="2"><i class='check icon'></i> <?php echo _('Отлично') ?></button>
+                        <button class="ui button" type="submit" name="submit" value="1"><i class='radio icon'></i> <?php echo _('Удовлетворительно') ?></button>
+                        <button class="ui negative button" type="submit" name="submit" value="0"><i class='remove icon'></i> <?php echo _('Неудовлетворительно') ?></button>
+                      </div>
+                    </center>
+                  </div>
+                </div>
+			  </form>
+            </div>

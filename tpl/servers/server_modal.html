@@ -1,0 +1,90 @@
+    <div class="ui large modal" id="server<?php echo $server['server_id'] ?>-info">
+      <div class="header"><?php echo _('Информация о сервере')." ".$server['server_id']?></div>
+
+      <div class="content">
+        <div class="ui grid">
+          <div class="five wide column">
+            <div style="min-height: 8rem; margin-bottom: 2rem !important;" class="ui segment">
+              <div class="ui top attached label"><i class="info icon"></i> <?php echo _('Основная информация') ?></div>
+
+              <div class="ui container" style="margin-top: 2rem !important;">
+                <div class="ui list">
+                  <div class="item"><strong><?php echo _('Название сервера:') ?></strong> <?php echo htmlspecialchars($server['name']) ?></div>
+                  <div class="item"><strong><?php echo _('Адрес сервера:') ?></strong> <a href="steam://connect/<?php echo $server['ip'].":".$server['port'] ?>"><?php echo $server['ip'].":".$server['port'] ?></a></div>
+                  <div class="item"><strong><?php echo _('Владелец сервера:') ?></strong> <a href="/profile/<?php echo $server['steamid'] ?>"><?php echo ($server['nickname'] != NULL)? htmlspecialchars($server['nickname']): $server['steamid'] ?></a> <a href="<?php echo "http://steamcommunity.com/profiles/" . Base::ToCommunityID($server['steamid']) ?>" class="blacklink"><i class="steam icon" style="margin: 0 !important;"></i></a></div>
+                  <?php if ($online) { ?>
+				  <div class="item"><strong><?php echo _('Текущая карта:') ?></strong> <?php echo $server['map']; if ($maps[$server['map']]) {?> <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=<?php echo $maps[$server['map']] ?>" target="_blank"><i class="cloud download icon" style="margin: 0 !important;"></i></a><?php } ?></div>
+                  <div class="item"><strong><?php echo _('Количество игроков:') ?></strong> <?php echo $db->num_rows($players).'/'.$server['maxplayers'] ?></div>
+                  <div class="item"><strong><?php echo _('Количество вагонов:') ?></strong> <?php echo $server['wagons'].'/'.$server['maxwagons'] ?></div>
+				  <?php } ?>
+                </div>
+              </div>
+            </div>
+
+            <?php if ($server['mapstats'] != '') { ?>
+			<div style="min-height: 8rem;" class="ui segment">
+              <div class="ui top attached label"><i class="pie chart icon"></i> <?php echo _('Статистика использования карт') ?></div>
+
+              <div class="ui container" style="margin-top: 2rem !important;">
+                <div id="server<?php echo $server['server_id'] ?>-mapgraph" style="height: 330px;"></div>
+              </div>
+            </div>
+			<?php } ?>
+          </div>
+          <div class="eleven wide column" align="right">
+            <div class="scrolling content">
+			<?php if ($db->num_rows($players) > 0) { ?>
+              <table class="ui very basic compact table">
+                <thead>
+                  <tr>
+                    <th><?php echo _('Имя игрока') ?></th>
+                    <th><?php echo _('Местоположение') ?></th>
+                    <th><?php echo _('Вагоны') ?></th>
+                    <th><?php echo _('Ранг') ?></th>
+                    <th><?php echo _('Время сессии') ?></th>
+                  </tr>
+                </thead>
+                <tbody>
+				<?php while($player = $db->fetch_array($players)) {
+					$iconsarr = (is_array(json_decode($player['icon'])))? json_decode($player['icon']): array((object) array('id' => $player['icon']));;
+					foreach ($servers as $key => $sv)
+					{
+						if ($sv['owner'] == $player['SID'] and $sv['active'] and $sv['show_for_everyone'] and !$sv['deleted'])
+						{
+							$iconsarr[] = (object) array('id'=>'6');
+						}
+					}
+				?>
+                  <tr>
+                    <td><a href="/profile/<?php echo $player['SID'] ?>"><?php echo (($player['nickname'] != NULL)?  $player['nickname']: $player['SID']) ?></a> <a href="<?php echo ("http://steamcommunity.com/profiles/" . Base::ToCommunityID($player['SID'])) ?>" class="blacklink"><i class="steam icon" style="margin: 0 !important;"></i></a> <?php echo User::ShowIcons($iconsarr) ?></td>
+                    <td><?php $str=$player['station']; echo mb_substr(mb_strtoupper($str, 'utf-8'), 0, 1, 'utf-8').mb_strtolower(mb_substr($str, 1, mb_strlen($str, 'utf-8'), 'utf-8'), 'utf-8') ?></td>
+					<td><?php echo $player['wagons'] ?></td>
+                    <td>
+                      <div class="ui middle aligned list">
+                        <div class="item">
+                           <?php if (User::ShowRankIcon($player['txtid'])) { ?><img class="ui image" src="<?php echo User::ShowRankIcon($player['txtid']) ?>" height="32"><?php } ?>
+                          <div class="content"><?php echo $groups[$player['txtid']] ?></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td><?php echo gmdate("H:i:s",(time() - $player['ConnectedTime'])) ?></td>
+                  </tr>
+				  <?php } ?>
+                </tbody>
+              </table>
+			<?php } else { ?>
+              <center>
+                <h1><?php echo ($online) ? _('Увы, в данный момент на сервере никто не играет') : _('Увы, в данный момент сервер недоступен') ?></h1>
+                <p class="ui text container"><?php echo ($online) ? _('Поторопитесь, вы можете стать первым ;)') : _('В это время вы можете попить чаю или выбрать себе другой сервер из нашего списка.') ?></p>
+              </center>
+			<?php } ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="ui <?php echo ($online)?'green':'disabled' ?> button" href="steam://connect/<?php echo $server['ip'].":".$server['port'] ?>"><?php echo _('Подключиться') ?> <i class="steam icon" style="margin: 0em 0em 0em 0.25em !important;"></i></a>
+        <div class="ui red cancel button"><?php echo _('Закрыть') ?></div>
+      </div>
+    </div>

@@ -1,0 +1,34 @@
+
+                <div class="ui segment">
+                  <div class="ui left aligned grid">
+                    <div class="three wide column">
+                      <img class="ui small circular image" src="<?php echo $comment['avatar_url']?>">
+                    </div>
+                    
+                    <div class="thirteen wide column">
+                      <div class="ui middle aligned grid">
+                        <div class="eleven wide column"><b><a href="/profile/<?php echo $comment['author']?>" class="blacklink"><?php echo $comment['nickname']?></a></b> <?php echo (is_array(json_decode($comment['icon'])))? User::ShowIcons(json_decode($comment['icon'])):User::ShowIconById($comment['icon']) ?> &raquo; <?php echo date(_("d.m.Y в H:i:s"), strtotime($comment['date'])) ?></div>
+                        <div class="five wide column" align="right">
+                          <div class="ui horizontal list">
+                            <div class="item">
+                              #<?php echo $comment['cid']?>
+                            </div>
+                            <?php if($access == 2) { ?>
+                            <div class="item">
+                              <form method="post">
+                                <button class="ui red tiny submit icon button" type="submit" name="delete" value="<?php echo $comment['cid']?>"><i class="trash icon"></i></button>
+                              </form>
+                            </div>
+							<?php } ?>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="ui divider" style="margin: 0.2em 0 0.2em 0;"></div>
+                      
+                      <span>
+                        <?php echo nl2br(htmlspecialchars($comment['text']))?>
+                      </span>
+                    </div>
+                  </div>
+                </div>

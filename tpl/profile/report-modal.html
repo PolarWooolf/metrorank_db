@@ -1,0 +1,35 @@
+    <form class="ui tiny modal" id="report-modal" method="post">
+      <div class="header">
+        <?php echo _('Пожаловаться') ?>
+      </div>
+      <div class="content">
+        <p>
+          <?php echo _('Не забудьте приложить к жалобе доказательства. Жалобы без доказательств <b>не рассматриваются</b>. Как доказательства сойдут скриншоты, видео и т.д.') ?>
+        </p>
+        <div class="ui form">
+          <div class="field">
+            <div class="ui fluid search selection dropdown">
+              <input type="hidden" name="server">
+              <i class="dropdown icon"></i>
+              <div class="default text"><?php echo _('Выберите сервер...') ?></div>
+              <div class="menu">
+				<?php foreach($servers as $server) { if ($server['deleted'] or !$server['show_for_everyone'] or !$server['active']) continue;?>
+				<div class="item" data-value="<?php echo $server['server_id'] ?>"><?php echo $server['name'] ?></div>
+				<?php } ?>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <textarea name="reason" placeholder="<?php echo _('Опишите нарушение пользователя...') ?>"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui red deny button">
+          <i class="remove icon"></i> <?php echo _('Отмена') ?>
+        </div>
+        <button type="submit" name="submit" value="report" class="ui primary icon button">
+          <i class="check icon"></i> <?php echo _('Пожаловаться') ?>
+        </button>
+      </div>
+    </form>

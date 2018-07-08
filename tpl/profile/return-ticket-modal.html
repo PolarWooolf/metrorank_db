@@ -1,0 +1,19 @@
+    <form class="ui tiny modal" id="return-ticket-modal" method="post">
+      <div class="header">
+        <?php echo _('Вернуть талон') ?>
+      </div>
+      <div class="content">
+		<input type="hidden" name="reason" value="123">
+		<p>
+          <?php echo _('Вы уверенны, что хотите вернуть талон?') ?>
+        </p>
+      </div>
+      <div class="actions">
+        <div class="ui red deny button">
+          <i class="remove icon"></i> <?php echo _('Отмена') ?>
+        </div>
+        <button type="submit" name="submit" value="rc" class="ui primary icon button">
+          <i class="check icon"></i> <?php echo _('Вернуть талон') ?>
+        </button>
+      </div>
+    </form>

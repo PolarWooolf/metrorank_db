@@ -1,0 +1,30 @@
+    <form class="ui tiny modal" id="give-test-modal" method="post">
+      <div class="header">
+        <?php echo _('Выдать тест') ?>
+      </div>
+      <div class="content">
+        <p>
+          <?php echo _('Все текущие недописанные тесты этого игрока получат отметку &laquo;Неудовлетворительно&raquo;.') ?>
+        </p>
+        <div class="ui form">
+          <div class="field">
+            <div class="ui fluid search selection dropdown">
+              <input type="hidden" name="test">
+              <i class="dropdown icon"></i>
+              <div class="default text"><?php echo _('Выберите желаемый тест...') ?></div>
+              <div class="menu">
+                <?php echo $tests_options ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui red deny button">
+          <i class="remove icon"></i> <?php echo _('Отмена') ?>
+        </div>
+        <button type="submit" name="submit" value="test" class="ui primary icon button">
+          <i class="check icon"></i> <?php echo _('Выдать тест') ?>
+        </button>
+      </div>
+    </form>

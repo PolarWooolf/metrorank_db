@@ -1,0 +1,60 @@
+    <form class="ui tiny modal" id="edit-modal" method="post">
+      <div class="header">
+        <?php echo _('Редактировать информацию') ?>
+      </div>
+      <div class="content">
+        <div class="ui form">
+          <div class="field">
+            <div class="ui labeled input">
+              <div class="ui label">
+                <i class="vk icon"></i> https://vk.com/id
+              </div>
+              <input type="text" name="vk_id" value="<?php echo $pl->take_social_info("vk_id") ?>" placeholder="<?php echo _('Идентификатор VK') ?>">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui labeled input">
+              <div class="ui label">
+                <i class="twitter icon"></i> https://twitter.com/
+              </div>
+              <input type="text" name="twitter" value="<?php echo $pl->take_social_info("twitter") ?>" placeholder="<?php echo _('Никнейм в Twitter') ?>">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui labeled input">
+              <div class="ui label">
+                <i class="youtube icon"></i> https://youtube.com/channel/
+              </div>
+              <input type="text" name="youtube" value="<?php echo $pl->take_social_info("youtube") ?>" placeholder="<?php echo _('Идентификатор канала на YouTube') ?>">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui labeled input">
+              <div class="ui label">
+                <i class="instagram icon"></i> https://instagram.com/
+              </div>
+              <input type="text" name="instagram" value="<?php echo $pl->take_social_info("instagram") ?>" placeholder="<?php echo _('Никнейм в Instagram') ?>">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui labeled input">
+              <div class="ui label">
+                <i class="twitch icon"></i> https://twitch.tv/
+              </div>
+              <input type="text" name="twitch" value="<?php echo $pl->take_social_info("twitch") ?>" placeholder="<?php echo _('Имя канала на Twitch') ?>">
+            </div>
+          </div>
+          <div class="field">
+            <textarea name="about" placeholder="<?php echo _('Напишите что-нибудь о себе...') ?>"><?php echo $pl->take_social_info("about") ?></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui red deny button">
+          <i class="remove icon"></i> <?php echo _('Отмена') ?>
+        </div>
+        <button class="ui primary icon button" type="submit" name="submit" value="profile">
+          <i class="check icon"></i> <?php echo _('Обновить информацию') ?>
+        </button>
+      </div>
+    </form>

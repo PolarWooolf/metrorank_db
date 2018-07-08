@@ -1,0 +1,31 @@
+    <form class="ui tiny modal" id="give-icon-modal" method="post">
+      <div class="header">
+        <?php echo _('Выдать иконку') ?>
+      </div>
+      <div class="content">
+        <div class="ui form">
+          <div class="field">
+            <div class="ui fluid search selection dropdown">
+              <input type="hidden" name="icon">
+              <i class="dropdown icon"></i>
+              <div class="default text"><?php echo _('Выберите иконку, которую вы желаете выдать...') ?></div>
+              <div class="menu"><?php echo $icons_options?>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <textarea name="icon_name" placeholder="<?php echo _('Название иконки...') ?>"></textarea>
+            <p><?php echo _('Чтобы оставить первоначальным &mdash; оставьте поле пустым.') ?></p>
+          </div>
+        </div>
+		<input type="hidden" name="reason" value="123">
+      </div>
+      <div class="actions">
+        <div class="ui red deny button">
+          <i class="remove icon"></i> <?php echo _('Отмена') ?>
+        </div>
+        <button type="submit" name="submit" value="add_icon" class="ui primary icon button">
+          <i class="check icon"></i> <?php echo _('Выдать иконку') ?>
+        </button>
+      </div>
+    </form>

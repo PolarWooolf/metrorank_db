@@ -1,0 +1,45 @@
+$('#server<?php echo $server['server_id'] ?>-info').modal('attach events', '#server<?php echo $server['server_id'] ?>-info-btn', 'show');
+<?php if ($server['mapstats'] != '') { ?>
+	 Highcharts.chart('server<?php echo $server['server_id'] ?>-mapgraph', {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: null
+        },
+        tooltip: {
+          pointFormat: '<?php echo _('Использование карты:')?> <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: false,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: false
+            },
+            showInLegend: true
+          }
+        },
+        series: [{
+          colorByPoint: true,
+          data: [
+            <?php
+              $json = $server['mapstats'];
+			  $mapstats = json_decode($json, true);
+              $totalUsed = 0;
+              foreach ($mapstats as $i)
+                $totalUsed += $i['usageCount'];
+          
+              foreach ($mapstats as $key => $value)
+                echo('{ name: \'' . $mapstats[$key]['map'] . '\', y: ' . str_replace(',','.',($mapstats[$key]['usageCount'] / $totalUsed) * 100) . ' }' . (($key != (count($mapstats) - 1)) ? ",\n" : ''));
+            ?>
+          ]
+        }]
+      });
+<?php } ?>

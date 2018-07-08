@@ -1,0 +1,28 @@
+		  <div class="header item"><a href="/">Metrostroi</a></div>
+
+          <?php echo $menu[0] ?>
+
+          <div class="right menu">
+            <div class="item" style="padding: 0.4em 1.14285714em;">
+              <div class="ui search">
+                <div class="ui left icon input">
+                  <input class="prompt" type="text" maxlength="32" placeholder="<?php echo _('Поиск игроков...') ?>">
+                  <i class="search icon"></i>
+                </div>
+              </div>
+            </div>
+			<?php echo $menu[1] ?>
+			<?php if($logged_user) { ?>
+				<a class="item" href="/logout?redirect=<?php echo htmlspecialchars($_GET['page'])?>"><? echo _('Выйти') ?></a>
+			<?php } else { ?>
+				<div class="item"><a class="ui primary button" href="/login?login&rdrct=<?php echo htmlspecialchars($_GET['page'])?>"><? echo _('Войти') ?></a></div>
+			<?php } ?>
+            <div class="ui dropdown item">
+              <i class="flag <?php echo Base::$langs[$locale][1] ?>" style="margin: 0;"></i>
+              <div class="menu">
+			  <?php foreach (Base::$langs as $key => $lang) { ?>
+                <a class="item<?php if($locale == $key) echo ' active';?>" <?php if($locale != $key) {?>href="/lang/<?php echo $key?>?redirect=<?php echo htmlspecialchars($_GET['page']) ?>"<?php } ?>><i class="<?php echo $lang[1] ?> flag"></i> <?php echo $lang[0] ?></a>
+			  <?php } ?>
+              </div>
+            </div>
+          </div>

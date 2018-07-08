@@ -1,0 +1,19 @@
+				  <tr>
+                    <td><?php echo htmlspecialchars($server['name']) ?> (<a href="/profile/<?php echo $server['steamid'] ?>"><?php echo ($server['nickname'] != NULL)? htmlspecialchars($server['nickname']): $server['steamid'] ?></a> <a href="<?php echo "http://steamcommunity.com/profiles/" . Base::ToCommunityID($server['steamid']) ?>"><i class="steam icon" style="margin: 0 !important;"></i></a>)</td>
+                    <td>
+                      <div class="ui <?php if ($server['show_for_everyone'] and $server['active']) echo ($online ? 'green' : 'red'); elseif (!$server['active']) echo 'grey' ?> label">
+                        <?php if (!$server['active']) echo _('Деактивированный сервер'); elseif (!$server['show_for_everyone']) echo _('Скрытый сервер'); else echo ($online ? 'Online' : 'Offline'); ?>
+                        <div class="darkened detail"><?php echo ($online ? ($db->num_rows($players).'/'.$server['maxplayers']) : '-/-') ?></div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ui mini icon buttons">
+						<?php if ($logged_user and ($server['owner']==$logged_user->steamid() or $logged_user->take_group_info("admin_panel"))) { ?>
+                        <!--<a class="ui red button"><i class="settings icon"></i></a>-->
+                        <a class="ui disabled button"><i class="settings icon"></i></a>
+                        <a class="ui yellow button" href="/server_edit/<?php echo $server['server_id'] ?>"><i class="edit icon"></i></a>
+						<?php } ?>
+                        <a class="ui <?php echo ($server['active'])?'blue':'disabled' ?> button" id="server<?php echo $server['server_id'] ?>-info-btn"><i class="info icon"></i></a>
+                      </div>
+                    </td>
+                  </tr>

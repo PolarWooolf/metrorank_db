@@ -1,0 +1,28 @@
+    <div class="ui mini modal" id="delete-modal-<?php echo $query['id'] ?>">
+      <div class="content">
+        <div class="ui centered grid">
+          <div class="row">
+            <p>
+              Вы действительно хотите удалить эту новость?<br>
+              Это действие будет невозможно отменить.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="actions" style="text-align: center;">
+        <div class="ui horizontal list">
+          <div class="item">
+            <div class="ui cancel button">
+              <?php echo _('Отменить') ?>
+            </div>
+          </div>
+          
+          <div class="item">
+            <form method="post" action="/news_delete/<?php echo $query['id'] ?>">
+              <button class="ui red labeled submit icon button" type="submit" name="submit" value="1"><i class="trash icon"></i> <?php echo _('Удалить') ?></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>

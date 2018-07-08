@@ -1,0 +1,12 @@
+          <div class="eleven wide column">
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><?php if ($admin_mode) { ?><a class="blacklink" href="/news_edit/<?php echo $query['id'] ?>"><i class="write icon"></i></a><a class="blacklink" id="delete-link-<?php echo $query['id'] ?>"><i class="trash icon"></i></a><?php } ?> <?php echo $query['title'] ?></div>
+
+              <div class="ui container" style="margin-bottom: 2rem !important;">
+                <?php echo $query['text'] ?>
+              </div>
+
+              <div class="ui bottom attached label"><i class="folder icon fix"></i> <a href="/news/cat/<?php echo $query['cat'] ?>" class="blacklink"><?php echo $query['name'] ?></a> | <i class="calendar icon fix"></i> <?php echo _('Добавлено:') ?> <?php echo date(_("d.m.Y в H:i:s"), strtotime($query['date'])) ?> | <i class="user icon fix"></i> <?php echo _('Автор:') ?> <a href="/profile/<?php echo $query['author'] ?>" class="blacklink"><?php echo $query['nickname'] ?></a></div>
+            </div>
+			<?php Comments::ShowComments(0, $query['id']) ?>
+          </div>

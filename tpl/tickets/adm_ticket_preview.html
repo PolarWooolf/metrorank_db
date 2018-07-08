@@ -1,0 +1,32 @@
+
+                <div class="ui segment">
+                  <div class="ui left aligned grid">
+                    <div class="three wide column">
+                      <div class="item"><img class="ui small circular image" src="<?php echo $ticket['avatar_url']?>"></div>
+                    </div>
+                    
+                    <div class="thirteen wide column">
+                      <div class="ui middle aligned grid">
+                        <div class="eleven wide column"><?php echo $status ?> <b><a href="/profile/<?php echo $ticket['written']?>" class="blacklink"><?php echo htmlspecialchars($ticket['nickname'])?></a></b> &raquo; <?php echo date(_("d.m.Y в H:i:s"), strtotime($ticket['date'])) ?></div>
+                        <div class="five wide column" align="right">
+                          <div class="ui horizontal list">
+                            <div class="item">
+                              #<?php echo $ticket['tid']?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="ui divider" style="margin: 0.2em 0 0.2em 0;"></div>
+                      
+                      <span>
+                        <?php echo nl2br(htmlspecialchars($ticket['text']))?>
+                      </span>
+                      
+                      <a href="/admin_tickets/<?php echo $ticket['written']?>" class="ui compact primary right labeled icon button" style="margin-top: 0.5em;display: table-caption;">
+                        <i class="long arrow right icon"></i>
+                        <?php echo _('Перейти') ?>
+                      </a>
+                    </div>
+                  </div>
+                </div>

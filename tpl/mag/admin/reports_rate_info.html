@@ -1,0 +1,26 @@
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><i class="eye icon"></i> <?php echo _('Просмотр жалобы') ?></div>
+              
+              <div class="ui container" style="margin-top: 2rem !important;">
+                <center style="margin-bottom: 1.0em;">
+                  <h2 style="margin-bottom: 0.3rem;">Информация об игроке <?php echo htmlspecialchars($pl->take_steam_info('nickname')) ?>:</h2>
+                  <div class="ui middle aligned horizontal list">
+                    <div class="item">
+                      <b>Звание:</b> <?php echo $pl->take_group_info('name') ?>
+                    </div>
+                    <div class="item">
+                      <b>Забанен:</b> <?php echo ($pl->take_ban_info('reason'))? ("Да") :_("Нет") ?>
+                    </div>
+                    <div class="item">
+                      <b>Нарушений:</b> <?php echo ($pl->count_violations())? $pl->count_violations() :_("Нет") ?>
+                    </div>
+                    <div class="item">
+                      <b>Номер талона:</b> <?php echo $pl->take_coupon_info('nom') ?>
+                    </div>
+                    <div class="item">
+                      <b>Жалоб MAG:</b> <?php echo $pl->count_mag_reports() ?>
+                    </div>
+                  </div>
+                </center>
+              </div>
+            </div>

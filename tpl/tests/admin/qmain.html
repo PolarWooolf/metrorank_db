@@ -1,0 +1,82 @@
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui red top attached label"><i class="warning sign yellow icon"></i> <?php echo _('Внимание') ?></div>
+              
+              <div class="ui container" style="margin-top: 2rem !important; text-align: justify; text-align-last: justify;">
+                <?php echo _('Тесты генерируются случайным образом из набора категорий и в каждой категории вопросы должны быть взаимозаменяймы, т.е.
+                одного уровня сложности. При составлении тестов внимательно читайте инструкции и подсказки. Старайтесь придумывать как
+                можно больше вопросов в одну категорию, чтобы минимизировать вероятность попадания одного и того-же вопроса в два теста
+                подряд. Вопросы формулируйте чётко и без двусмысленности. Если вы не уверены в формулировке вопроса, то посоветуйтесь с
+                другими инструкторами.') ?>
+              </div>
+            </div>
+            
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><i class="table icon"></i> <?php echo _('Вопросы к тестам') ?></div>
+              
+              <div class="ui container" style="margin-top: 2rem !important;">
+                <center><h1><?php echo _('Шаблоны тестов:') ?></h1></center>
+                <table class="ui compact celled definition table">
+                  <thead class="full-width">
+                    <tr>
+                      <th></th>
+                      <th><?php echo _('Название теста') ?></th>
+                      <th><?php echo _('Приоритет') ?></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+				    <?php if ($db->num_rows($tests)) while ($test = $db->fetch_array($tests)) { ?>
+                    <tr>
+                      <td class="collapsing">
+                        <a href="/admin_questions/test/<?php echo $test['tid'] ?>" class="blacklink"><i class="setting icon fix"></i></a>
+                        <a href="/admin_questions/?deltest=<?php echo $test['tid'] ?>" class="blacklink"><i class="trash icon fix"></i></a>
+                      </td>
+                      <td><?php echo $test['tname'] ?></td>
+                      <td><?php echo $test['tpriority'] ?></td>
+                    </tr>
+					<?php } else { ?>
+					нихуянет
+					<?php } ?>
+                  </tbody>
+                  <tfoot class="full-width">
+                    <tr>
+                      <th colspan="4">
+                        <a class="ui right floated small green labeled icon button" href="/admin_questions/add_test">
+                          <i class="plus icon"></i> <?php echo _('Добавить тест') ?>
+                        </a>
+                      </th>
+                    </tr>
+                  </tfoot>
+                </table>
+                
+                <center><h1 style="margin-top: 1em;"><?php echo _('Категории вопросов:') ?></h1></center>
+                <table class="ui compact celled definition table">
+                  <thead class="full-width">
+                    <tr>
+                      <th></th>
+                      <th><?php echo _('Название категории') ?></th>
+                      <th><?php echo _('Количество вопросов') ?></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+				    <?php while ($cat = $db->fetch_array($cats)) { ?>
+                    <tr>
+                      <td class="collapsing">
+                        <a href="/admin_questions/<?php echo $cat['qcid'] ?>" class="blacklink"><i class="eye icon fix"></i></a>
+                      </td>
+                      <td><?php echo $cat['qcname'] ?></td>
+                      <td><?php echo $cat['qcid'] ?></td>
+                    </tr>
+					<?php } ?>
+                  </tbody>
+                  <tfoot class="full-width">
+                    <tr>
+                      <th colspan="4">
+                        <a class="ui right floated small green labeled icon button" href="/admin_questions/add_cat">
+                          <i class="plus icon"></i> <?php echo _('Добавить категорию') ?>
+                        </a>
+                      </th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>

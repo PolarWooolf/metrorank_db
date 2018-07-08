@@ -1,0 +1,6 @@
+                <div class="ui segment">
+                  <div class="ui <?php echo $class ?> top attached label"><?php echo _('Неудачная практика') ?> | <?php echo _('Дата:') ?> <?php echo date(_("d.m.Y в H:i:s"), $pl_exam['date']) ?> | <?php echo _('Сервер:') ?> <?php echo htmlspecialchars((($pl_exam['server_id'] == -1) ? $pl_exam['server'] : $servers[$pl_exam['server_id']]['name'])) ?> | <?php echo _('Экзаменатор:') ?> <a href="/profile/<?php echo $pl_exam['examiner'] ?>" class="blacklink" style="color: #e0e0e0 !important;"><?php echo ($pl_exam['nickname'] == null)? $pl_exam['examiner']: htmlspecialchars($pl_exam['nickname']) ?></a></div>
+                  <p>
+                    <?php echo nl2br(htmlspecialchars($pl_exam['note'])) ?>
+                  </p>
+                </div>

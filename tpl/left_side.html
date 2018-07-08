@@ -1,0 +1,97 @@
+            <?php if($logged_user) { ?>
+           <div style="min-height: 8rem;" class="ui segment">
+              <div class="ui top attached label" style="min-height: 2.8em;"><i class="user icon"></i> <a href="/profile/<?php echo $logged_user->steamid(); ?>" class="blacklink"><?php echo $logged_user->take_steam_info('nickname'); ?></a> <a href="<?php echo ("http://steamcommunity.com/profiles/" . Base::ToCommunityID($logged_user->steamid())); ?>" class="blacklink"><i class="steam square icon"></i></a><?php echo $logged_user->show_icon(); ?></div>
+
+              <div class="ui container" style="margin-top: 2.5rem !important;">
+                <div class="ui grid">
+                  <div class="two column row" style="padding-bottom: 0 !important;">
+                    <div class="six wide column">
+                      <img class="ui small circular image" src="<?php echo $logged_user->take_steam_info('avatar_url'); ?>">
+                    </div>
+
+                    <div class="ten wide column">
+                      <div class="ui relaxed list">
+                        <div class="item">
+                          <i class="ban icon"></i>
+                          <div class="content"><strong><?php echo _("Жалоб MAG:") ?></strong> <?php echo $logged_user->count_mag_reports(); ?></div>
+                        </div>
+                        <div class="item">
+                          <i class="warning icon"></i>
+                          <div class="content"><strong><?php echo _("Нарушения:") ?></strong> <?php echo $logged_user->count_violations(); ?></div>
+                        </div>
+                        <div class="item">
+                          <i class="checkmark box icon"></i>
+                          <div class="content"><strong><a href="/tests" class="blacklink"><?php echo _("Мои тесты") ?></a></strong></div>
+                        </div>
+                        <div class="item">
+                          <i class="info circle box icon"></i>
+                          <div class="content">
+						  <?php if ($logged_user->count_new_tickets() != 0) { ?>
+                              <div class="ui middle aligned grid">
+                                <div class="ten wide column">
+                                  <strong><a href="/tickets" class="blacklink"><?php echo _("Тикеты") ?></a> </strong>
+                                </div>
+                                <div class="six wide column" style="padding-left: 0;">
+                                  <div class="ui mini red circular label"><?php echo $logged_user->count_new_tickets(); ?></div>
+                                </div>
+                              </div>
+						  <?php } else { ?>
+						    <strong><a href="/tickets" class="blacklink"><?php echo _("Тикеты") ?></a></strong>
+						  <?php } ?>
+						  </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="sixteen wide column">
+                    <div class="ui inverted divider" style="margin: 0.5rem 0rem !important;"></div>
+
+                    <div class="ui middle aligned grid">
+                      <div class="eight wide column">
+                        <?php echo $logged_user->take_group_info('name'); ?>
+                      </div>
+
+                      <div class="eight wide column" align="right" style="transform: rotateY(180deg);">
+                        <?php if($logged_user->show_rank_icon()) { ?><img class="ui image" src="<?php echo $logged_user->show_rank_icon() ?>" height="36" style="margin: 0 auto 0 0;"><?php } ?>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+			<?php } else {?>
+			<div style="min-height: 7rem;" class="ui segment">
+              <div class="ui top attached label"><i class="user icon"></i> <?php echo _("Войти")?></div>
+
+              <div class="ui container" style="margin-top: 2.2rem !important;">
+                <div class="ui vertical two buttons">
+                  <a class="ui blue button" href="/login/?login&rdrct=<?php echo htmlspecialchars($_GET['page'])?>"><i class="steam icon"></i> <?php echo _("Вход через Steam") ?></a>
+                </div>
+              </div>
+            </div>
+			<?php } ?>
+
+            <div class="ui vertical two buttons">
+              <a class="ui button" href="https://steamcommunity.com/sharedfiles/filedetails/?id=261801217"><i class="steam icon"></i> Metrostroi (Subway Simulator)</a>
+              <a class="ui button" href="https://steamcommunity.com/sharedfiles/filedetails/?id=886938567"><i class="steam icon"></i> MetAdmin</a>
+              <a class="ui teal button" href="https://instagr.am/metrostroi_official"><i class="instagram icon"></i> @metrostroi_official</a>
+              <a class="ui blue button" href="https://vk.com/metrostroi_official"><i class="vk icon"></i> *metrostroi_official</a>
+            </div>
+
+            <div style="min-height: 8rem; margin-bottom: 2rem !important;" class="ui segment">
+              <div class="ui top attached label"><i class="vk icon"></i> <?php echo _("ВКонтакте")?></div>
+
+              <div class="ui container" style="margin-top: 2rem !important;">
+                <div class="ui centered grid">
+                  <div class="ui row">
+                    <script src="https://vk.com/js/api/openapi.js?121"></script>
+
+                    <div id="vk_groups"></div>
+                    <script>VK.Widgets.Group("vk_groups", {mode: 2, width: "260", height: "350", color1: 'FFFFFF', color2: '000000', color3: '222222'}, 93936817);</script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="eleven wide column">

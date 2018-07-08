@@ -1,0 +1,30 @@
+    <form class="ui tiny modal" id="set-rank-modal" method="post">
+      <div class="header">
+        <?php echo _('Установить ранг') ?>
+      </div>
+      <div class="content">
+        <div class="ui form">
+          <div class="field">
+            <div class="ui fluid search selection dropdown">
+              <input type="hidden" name="group">
+              <i class="dropdown icon"></i>
+              <div class="default text"><?php echo _('Выберите новую группу пользователя...') ?></div>
+              <div class="menu"><?php echo $groups_options?>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <textarea name="reason" placeholder="<?php echo _('Введите причину изменения группы...') ?>"></textarea>
+            <p><?php echo _('Всё, что нужно знать другим инструкторам. Не длиннее 255 символов.') ?></p>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui red deny button">
+          <i class="remove icon"></i> <?php echo _('Отмена') ?>
+        </div>
+        <button type="submit" name="submit" value="setrank" class="ui primary icon button">
+          <i class="check icon"></i> <?php echo _('Установить ранг') ?>
+        </button>
+      </div>
+    </form>

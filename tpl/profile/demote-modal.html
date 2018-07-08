@@ -1,0 +1,23 @@
+    <form class="ui tiny modal" id="demote-modal" method="post">
+      <div class="header">
+        <?php echo _('Понизить') ?>
+      </div>
+      <div class="content">
+        <p>
+          <?php echo _('Порядок понижения:') ?> <i><?php echo _('Машинист 1 класса &raquo; Машинист 2 класса &raquo; Машинист 3 класса &raquo; Машинист (б/к) &raquo; Помощник машиниста.') ?></i>
+        </p>
+        <div class="ui form">
+          <div class="field">
+            <textarea name="reason" placeholder="<?php echo _('Введите причину понижения...') ?>"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui red deny button">
+          <i class="remove icon"></i> <?php echo _('Отмена') ?>
+        </div>
+        <button type="submit" name="submit" value="down" class="ui primary icon button">
+          <i class="check icon"></i> <?php echo _('Понизить') ?>
+        </button>
+      </div>
+    </form>

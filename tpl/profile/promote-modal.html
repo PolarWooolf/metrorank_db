@@ -1,0 +1,32 @@
+    <form class="ui tiny modal" id="promote-modal" method="post">
+      <div class="header">
+        <?php echo _('Повысить') ?>
+      </div>
+      <div class="content">
+        <p>
+          <?php echo _('Порядок повышения:') ?> <i><?php echo _('Помощник машиниста &raquo; Машинист (б/к) &raquo; Машинист 3 класса &raquo; Машинист 2 класса &raquo; Машинист 1 класса.') ?></i>
+        </p>
+        <div class="ui form">
+          <div class="field">
+            <textarea name="reason" placeholder="<?php echo _('Введите причину повышения...') ?>"></textarea>
+          </div>
+		  <?php if($pl->take_group_info('txtid') == 'user') { ?>
+          <div class="field">
+            <div class="ui checkbox">
+              <input type="checkbox" name="up_to_3_class">
+              <label><?php echo _('Выдать сразу третий класс') ?></label>
+              <p><?php echo _('Ставьте эту галочку только в том случае, если игрок действительно заслуживает третий класс.') ?></p>
+            </div>
+          </div>
+		  <?php } ?>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui red deny button">
+          <i class="remove icon"></i> <?php echo _('Отмена') ?>
+        </div>
+        <button type="submit" name="submit" value="up" class="ui primary icon button">
+          <i class="check icon"></i> <?php echo _('Повысить') ?>
+        </button>
+      </div>
+    </form>

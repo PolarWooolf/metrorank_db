@@ -1,0 +1,20 @@
+              <a class="item" href="/news"><?php echo _('Новости') ?></a>
+              <a class="item" href="https://wiki.metrostroi.net" target="_blank">Wiki</a>
+              <a class="item" href="/players"><?php echo _('Игроки') ?></a>
+              <a class="item" href="/servers"><?php echo _('Сервера') ?></a>
+              <a class="item" href="/mag"><?php echo _('MAG') ?></a>
+              <a class="item" style="cursor: default;">&nbsp;</a>
+              <?php echo $menu[1] ?>
+			  <?php if($logged_user) { ?>
+			  	<a class="item" href="/logout?redirect=<?php echo htmlspecialchars($_GET['page'])?>"><? echo _('Выйти') ?></a>
+			  <?php } else { ?>
+			  	<div class="item"><a class="ui primary button" href="/login?login&rdrct=<?php echo htmlspecialchars($_GET['page'])?>"><? echo _('Войти') ?></a></div>
+			  <?php } ?>
+              <div class="ui dropdown item">
+                <i class="flag <?php echo Base::$langs[$locale][1] ?>" style="margin: 0;"></i>
+                <div class="menu">
+			    <?php foreach (Base::$langs as $key => $lang) { ?>
+                  <a class="item<?php if($locale == $key) echo ' active';?>" <?php if($locale != $key) {?>href="/lang/<?php echo $key?>?redirect=<?php echo htmlspecialchars($_GET['page']) ?>"<?php } ?>><i class="<?php echo $lang[1] ?> flag"></i> <?php echo $lang[0] ?></a>
+			    <?php } ?>
+                </div>
+              </div>

@@ -1,0 +1,64 @@
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important; padding: 3.4em 4.3em 3.4em 4.3em; background: url(/tpl/img/tests-img.jpg) no-repeat center center; color: white; text-shadow: 2px 2px 2px #eeeeee;">
+              <h1 style="font-size: 4.5em; font-weight: 500;"><?php echo _('Мои тесты') ?></h1>
+              <p style="font-size: 1.5em; margin-bottom: 1.1em;"><?php echo _('На данной странице находится список решённых вами тестов.') ?></p>
+              <div class="ui floating labeled primary icon dropdown button">
+                <i class="checkmark box icon"></i>
+                <span class="text"><?php echo _('Назначить себе тест') ?></span>
+                <div class="menu">
+                  <div class="header">
+                    <i class="info icon"></i>
+                    <?php echo _('За сутки можно написать только один тест') ?>
+                  </div>
+                  <div class="divider"></div>
+                  <?php if (!$db->num_rows($tests_take)) { ?>
+                  <a class="disabled item">
+                    <?php echo _('Тестов нет') ?>
+                  </a>
+                  <?php } else while ($test = $db->fetch_array($tests_take)) { ?>
+                  <a class="item" href="/tests?take=<?php echo $test['tid'] ?>">
+                    <?php echo $test['tname'] ?>
+                  </a>
+                  <?php } ?>
+                </div>
+              </div>
+            </div>
+			<?php if (isset($error) and strlen($error)) { ?>
+			<div class="ui error message">
+			  <div class="content">
+			    <p><?php echo $error ?></p>
+			  </div>
+			</div>
+			<?php } ?>
+			<?php if (!$db->num_rows($tests)) { ?>
+            <center>
+              <h1><?php echo _('Тесты отсутствуют') ?></h1>
+              <p class="ui text container"><?php echo _('К сожалению, вы ещё не написали ни одного теста. Так чего-же вы ждёте?!') ?></p>
+            </center>
+            <?php } else { ?>
+            <table class="ui inverted compact striped table" style="margin-bottom: 2rem !important;">
+              <thead>
+                <tr>
+                  <th><?php echo _('Название теста') ?></th>
+                  <th><?php echo _('Проверяющий') ?></th>
+                  <th><?php echo _('Статус') ?></th>
+                  <th><?php echo _('Дата') ?></th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php while ($test = $db->fetch_array($tests)) { ?>
+				<tr>
+                  <td>
+                    <?php echo $test['trname'] ?> <?php if ($test['status'] == 3) if ($test['passed']) {?><i class="check metrostroi icon" style="color: #3c763d;" data-tippy-theme="translucent" title="<?php echo _('Сдал') ?>"></i><?php }else{ ?><i class="remove metrostroi icon" style="color: red;" data-tippy-theme="translucent" title="<?php echo _('Не сдал') ?>"></i><?php } ?>
+                  </td>
+                  <td><a href="/profile/<?php echo $test['reviewer'] ?>"><?php echo htmlspecialchars($test['reviewer_nickname']) ?></a></td>
+                  <td><?php echo $statuses[$test['status']] ?></td>
+                  <td><?php echo date(_("d.m.Y в H:i"), strtotime(($test['completed_date'] != null)?$test['completed_date']:$test['recived_date'])) ?></td>
+                  <td>
+                    <a class="ui fluid tiny primary button" href="/tests/<?php echo $test['trid'] ?>"><?php echo _('Посмотреть тест')?> &raquo;</a>
+                  </td>
+                </tr>
+				<?php } ?>
+              </tbody>
+            </table>
+			<?php } ?>

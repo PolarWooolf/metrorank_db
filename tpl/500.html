@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Metrostroi &raquo; 500</title>
+
+    <link rel="stylesheet" href="/dist/semantic4.css" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/dist/semantic.js"></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Gudea:400,700');
+      @import url('https://fonts.googleapis.com/css?family=Arimo&subset=cyrillic');
+
+      body {
+        background-color: #222;
+        background: radial-gradient(ellipse 70% 100% at center bottom, #444, #000);
+      }
+
+      body > .grid {
+        height: 100%;
+      }
+
+      #error-box {
+        background-color: #fff;
+        box-sizing: border-box;
+        max-width: 1000px;
+        padding: 2.5em;
+        margin-left: auto;
+        margin-right: auto;
+        background-clip: padding-box;
+        opacity: 1;
+        transform: scale(1);
+        transition: opacity 0.5s, transform 1s, -webkit-transform 1s;
+        box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.5);
+      }
+
+      h1 {
+        font-size: 270%;
+        font-weight: 900;
+        margin: 0px auto;
+      }
+
+      h1 span {
+        font-family: 'Gudea', sans-serif;
+        font-weight: normal;
+        opacity: 0.5;
+        color: #0093d5;
+        font-size: 2em;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.2em;
+        display: block;
+      }
+
+      p {
+        margin: 0.35em auto;
+        font-size: 180%;
+        font-weight: 300;
+        max-width: 90vw;
+        line-height: 1.2em;
+        font-family: 'Arimo', sans-serif;
+      }
+
+      .ui.button {
+        animation: pulse 5s infinite;
+        color: #ffffff;
+        padding: 0.5em 1em;
+        line-height: 1.5em;
+        margin: 1em 0.5em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="ui middle aligned center aligned grid">
+      <div class="column">
+        <div class="ui container" id="error-box">
+          <h1>
+            <span>500</span>
+            <?php echo _('Внутренняя ошибка сервера') ?>
+          </h1>
+
+          <p class="ui container">
+            Ой-ой, у нас всё сломалось. Попробуйте <span id="error-action">вернуться на главную</span>. Если это не поможет, то ждите, ведь наши маги уже знают об этой неполадке и устраняют её.
+          </p>
+
+          <a class="ui huge blue button" id="error-button" href="/"><?php echo _('Перейти на главную') ?></a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      if (history.length == 1)
+        $('#error-button').attr('href', '/');
+      else {
+        $('#error-action').html('<?php echo _('вернуться назад') ?>');
+        $('#error-button').html('<?php echo _('Вернуться назад') ?>');
+        $('#error-button').attr('href', 'javascript:history.back()');
+      }
+    </script>
+  </body>
+</html>

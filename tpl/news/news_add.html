@@ -1,0 +1,63 @@
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><i class="write icon"></i> <?php echo $page_fucking_title ?></div>
+
+              <form method="post">
+                <div class="ui container">
+                  <div class="ui grid">
+                    <div class="eight wide column">
+                      <div class="ui right action left icon fluid input">
+                        <i class="bookmark icon"></i>
+                        <input type="text" name="title" placeholder="<?php echo _('Название новости') ?>" value="<?php echo $title ?>">
+
+                        <div class="ui basic floating dropdown button">
+						  <input type="hidden" name="cat">
+                          <div class="text"><?php echo isset($cat_name)?$cat_name:_('Категория')?></div>
+
+                          <i class="dropdown icon"></i>
+                          <div class="menu" name="cat">
+							<?php echo $cats_select ?>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="eight wide column">
+                      <div class="ui relaxed horizontal list">
+                        <div class="item <?php echo ($add)?'disabled':'' ?>">
+                          <div class="ui checkbox">
+                            <input type="checkbox" name="renew_date">
+                            <label><?php echo _('Сбросить дату публикации') ?></label>
+                          </div>
+                        </div>
+                        <div class="item">
+                          <button class="ui primary button" type="submit" name="submit"><?php echo($add)? _('Добавить'):_('Сохранить'); ?></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="ui centered grid">
+                    <div class="ui row">
+                      <div class="ui container" style="padding: 0 1em 0 1em;"><textarea name="text" style="visibility: hidden;"><?php echo $text ?></textarea></div>
+                    </div>
+                    <div class="ui row" style="padding-top: 0;">
+                      <div class="ui text container"><?php echo _('Тег <b>&lt;cut&gt;</b> используется для установки границы короткой новости.') ?></div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+			
+          <script src="/tpl/js/tinymce/tinymce.min.js"></script>
+          <script>
+            tinymce.init({
+              branding: false,
+              cleanup: false,
+              extended_valid_elements: 'cut',
+              language: '<?php echo $locale=='ru_RU'?'ru':'en'?>',
+              plugins: 'code preview image link',
+              selector: 'textarea',
+              toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | link image | preview',
+              verify_html: false
+            });
+          </script>

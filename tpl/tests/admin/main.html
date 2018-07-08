@@ -1,0 +1,34 @@
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important; padding: 3.4em 4.3em 3.4em 4.3em; background: url(/tpl/img/tests-img.jpg) no-repeat center center; color: white; text-shadow: 2px 2px 2px #eeeeee;">
+              <h1 style="font-size: 4.5em; font-weight: 500;"><?php echo _('Непроверенные тесты') ?></h1>
+              <p style="font-size: 1.5em; margin-bottom: 1.1em;"><?php echo _('Это - список непроверенных тестов') ?></p>
+            </div>
+			<?php if (!$db->num_rows($tests)) { ?>
+            <center>
+              <h1><?php echo _('Непроверенных тестов нет') ?></h1>
+            </center>
+            <?php } else { ?>
+            <table class="ui inverted compact striped table" style="margin-bottom: 2rem !important;">
+              <thead>
+                <tr>
+                  <th><?php echo _('Название теста') ?></th>
+                  <th><?php echo _('Игрок') ?></th>
+                  <th><?php echo _('Дата') ?></th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php while ($test = $db->fetch_array($tests)) { ?>
+				<tr>
+                  <td>
+                    <?php echo $test['trname'] ?>
+                  </td>
+                  <td><a href="/profile/<?php echo $test['student'] ?>"><?php echo htmlspecialchars($test['student_nickname']) ?></a></td>
+                  <td><?php echo date(_("d.m.Y в H:i"), strtotime($test['completed_date'])) ?></td>
+                  <td>
+                    <a class="ui fluid tiny primary button" href="/admin_tests/<?php echo $test['trid'] ?>"><?php echo _('Посмотреть тест')?> &raquo;</a>
+                  </td>
+                </tr>
+				<?php } ?>
+              </tbody>
+            </table>
+			<?php } ?>

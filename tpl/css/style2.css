@@ -1,0 +1,88 @@
+      .main.container {
+        margin-top: 4.5em;
+      }
+
+      .ui.footer.segment {
+        padding: 1.2em 0em;
+      }
+
+      .icon.metrostroi {
+        line-height: 1;
+        vertical-align: baseline;
+        width: 1.8em !important;
+        height: 1.8em;
+        padding: 0.45em 0.369em !important;
+        border-radius: 0.3em;
+      }
+
+      .icon.fix {
+        margin: 0em 0.25em 0em 0.25em !important;
+      }
+
+      .blacklink, .blacklink:focus {
+        color: black !important;
+        opacity: 1 !important;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .125);
+        transition: all .2s linear !important;
+        text-decoration: none;
+      }
+
+      .blacklink:hover {
+        color: #666 !important;
+        text-decoration: none;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .4);
+      }
+
+      .darkened.detail {
+        background: rgba(0, 0, 0, .1);
+        margin: -.5833em -.833em -.5833em .5em;
+        padding: .5833em .833em;
+        border-radius: 0 .28571429rem .28571429rem 0;
+      }
+      
+      .ui.label {
+        color: rgba(0, 0, 0, 1) !important; 
+        font-size: 0.95rem;
+      }
+      .ui.search > .results {
+        width: 22em;
+      }
+      
+      .ui.search > .results .result {
+        padding: 0.5em 1.14285714em;
+      }
+
+      .ui.search > .results .result .image {
+        width: auto;
+      }
+
+      .ui.search > .results > .message .header {
+        visibility: hidden;
+      }
+
+      .ui.search > .results > .message .header {
+        visibility: hidden;
+      }
+      
+      .ui.search > .results > .action {
+        padding: 0.8em 1em;
+      }
+      div.ticket {
+        display: block;
+        background: #e9d2a6;
+        text-align: center;
+        margin: 10px 0 0;
+      }
+	  
+      div.ticket > .inner-1 {
+        background: linear-gradient(to top right, rgba(255,0,0,0) 0%, rgba(255,0,0,0) calc(50% - 15.8px), rgba(0,127,0,1) calc(50% - 15.7px), rgba(0,127,0,1) 50%, rgba(0,127,0,1) calc(50% + 15.7px), rgba(255,0,0,0) calc(50% + 15.8px), rgba(255,0,0,0) 100%);
+        padding: 30px;
+      }
+      div.ticket > .inner-2 {
+        background: linear-gradient(to top right, rgba(255,0,0,0) 0%, rgba(255,0,0,0) calc(50% - 15.8px), rgba(255,255,0,1) calc(50% - 15.7px), rgba(255,255,0,1) 50%, rgba(255,255,0,1) calc(50% + 15.7px), rgba(255,0,0,0) calc(50% + 15.8px), rgba(255,0,0,0) 100%);
+        padding: 30px;
+      }
+      div.ticket > .inner-3 {
+        background: linear-gradient(to top right, rgba(255,0,0,0) 0%, rgba(255,0,0,0) calc(50% - 15.8px), rgba(255,0,0,1) calc(50% - 15.7px), rgba(255,0,0,1) 50%, rgba(255,0,0,1) calc(50% + 15.7px), rgba(255,0,0,0) calc(50% + 15.8px), rgba(255,0,0,0) 100%);
+        padding: 30px;
+      }

@@ -1,0 +1,6 @@
+          <div class="ui dropdown item" <?php if ($item['active']) {echo 'style="background: rgba(255, 255, 255, 0.15); color: #ffffff !important;"';} ?>>
+            <?php if ($item['url']) { ?><a href="<?php echo $item['url'] ?>"><?php } ?><?php if ($item['show_icon']) { echo '<i class="'.$item['show_icon'].'"></i> ';}?><?php echo $item['title'] ?><?php if ($item['url']) { ?></a><?php } ?> <i class="dropdown icon"></i>
+            <div class="menu">
+			  <?php echo $sub ?>
+            </div>
+          </div>

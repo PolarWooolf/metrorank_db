@@ -1,0 +1,33 @@
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><i class="checkmark box icon"></i> <?php echo $test['trname'] ?></div>
+              
+              <p>
+                <center>
+                  <?php if ($test['status'] < 2) { ?>
+				  <?php echo _('Тик-так&hellip; Время пошло, и помни, списывать не хорошо!') ?><br><br>
+                  <?php } elseif ($test['status'] >= 2) { ?>
+				  Вы отправили тест на проверку <?php echo date("d.m.Y в H:i", strtotime($test['completed_date'])) ?>, тест был решён за <?php echo ((int)((strtotime($test['completed_date']) - strtotime($test['recived_date']))/60)) . ":" . str_pad((strtotime($test['completed_date']) - strtotime($test['recived_date']))%60, 2, 0, STR_PAD_LEFT) ?>.<br>
+                  <?php if ($test['status'] == 3) { ?>
+				  Тест был проверен инструктором <a href="/profile/<?php echo $test['reviewer'] ?>"><?php echo htmlspecialchars($test['reviewer_nickname']) ?></a> <?php echo date("d.m.Y в H:i", strtotime($test['review_date'])) ?>, результат теста: <?php echo $rating[$test['passed']] ?>.<br><br>
+                  <?php if ($test['note'] != '') { ?>
+                  <?php echo _('Комментарий инструктора:') ?><br><b><?php echo htmlspecialchars($test['note']) ?></b><br><br>
+                  <?php }}} ?>
+                </center>
+              </p>
+                
+              <form method="post">
+                <div class="ui form">
+                  <?php foreach ($questions as $number => $question) { ?>
+              	<div class="field">
+                    <label style="text-align: center;"><?php echo htmlspecialchars($question) ?> <?php if($answers_marks and (isset($answers->$number) or isset($answers[$number]))) echo $marks[((isset($answers_marks->$number))?$answers_marks->$number:$answers_marks[$number])] ?></label>
+                    <textarea name="<?php echo 'answer' . $number ?>" rows="4" style="margin-top: 0px; margin-bottom: 0px;<?php if($answers_marks and (isset($answers->$number) or isset($answers[$number]))) echo ' border-color: '.$marks_color[((isset($answers_marks->$number))?$answers_marks->$number:$answers_marks[$number])].';' ?>"<?php if ($test['status'] >= 2) echo " readonly" ?>><?php echo htmlspecialchars(($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') ?></textarea>
+                  </div>
+              	<?php } ?>
+              	<?php if ($test['status'] < 2) { ?>
+                  <div class="field" style="margin-top: 20px;">
+                    <button class="ui fluid primary submit button" type="submit" name="submit" value="1"><?php echo _('Отправить тест') ?></button>
+                  </div>
+              	<?php } ?>
+                </div>
+              </form>
+            </div>

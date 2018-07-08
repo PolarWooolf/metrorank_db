@@ -1,0 +1,95 @@
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><i class="protect icon"></i> <?php echo _('Metrostroi Anti-Grief') ?></div>
+              
+              <center><h1><?php echo _('Список нарушителей и MAG-банов:') ?></h1></center>
+              <table class="ui compact table">
+                <thead>
+                  <tr>
+                    <th class="three wide"><?php echo _('Ник нарушителя') ?></th>
+                    <th class="three wide"><?php echo _('Кто забанил?') ?></th>
+                    <th><?php echo _('Причина блокировки') ?></th>
+                    <th><?php echo _('Дата выдачи блокировки') ?></th>
+                  </tr>
+                </thead>
+                <tbody>
+				<?php
+				while ($ban = $db->fetch_array($query)){?>
+                  <tr>
+                    <td><a href="/profile/<?php echo $ban['mag_steam_id'] ?>"><?php echo htmlspecialchars($ban['nickname']) ?></a> <a href="<?php echo "http://steamcommunity.com/profiles/" . Base::ToCommunityID($ban['mag_steam_id']) ?>" class="blacklink"><i class="steam icon fix"></i></a></td>
+                    <td><?php if ($ban['admin_nickname']) { ?><a href="/profile/<?php echo $ban['mag_admin_id'] ?>"><?php echo htmlspecialchars($ban['admin_nickname']) ?></a><a href="<?php echo "http://steamcommunity.com/profiles/" . Base::ToCommunityID($ban['mag_admin_id']) ?>" class="blacklink"><i class="steam icon fix"></i></a><?php } else { ?><? echo _('Автоматически'); } ?></td>
+                    <td><?php echo $ban['mag_reason'] ?></td>
+                    <td title="<?php echo _('Разблокировка: ').($ban['mag_unban_date']? (date("d.m.Y в H:i", strtotime($ban['mag_unban_date']))):_('Перманентно')) ?>"><?php echo date("d.m.Y в H:i", strtotime($ban['mag_date'])) ?></td>
+                  </tr>
+				<?php }?>
+                </tbody>
+              </table>
+              
+              <div class="ui styled fluid accordion" style="margin-top: 4em;">
+                <div class="active title">
+                  <i class="dropdown icon"></i>
+                  <?php echo _('Что такое &laquo;Metrostroi Anti-Grief&raquo;?') ?>
+                </div>
+                <div class="active content">
+                  <p>
+                    <b>Metrostroi Anti-Grief</b> <i>(аббр. MAG)</i> &mdash; это комплексная, высокоточная, отлаженная система, направленная на создание комфортных условий для игры на серверах с модом Metrostroi.
+                    Система работает полностью в автоматическом режиме, что позволяет исключить различные неточности и сбои в работе, а также печально известный человеческий фактор.
+                    Администраторы серверов не имеют никакого доступа к управлению банами &laquo;MAG&raquo;, а лишь могут локально заблокировать того или иного игрока на своём сервере.
+                    Для избежания блокировок, старайтесь не мешать другим игрокам, а также не давать ваш аккаунт Steam третьим лицам, как для игры в Metrostroi, так и в другие игры.
+                  </p>
+                </div>
+                <div class="title">
+                  <i class="dropdown icon"></i>
+                  <?php echo _('Возможно ли получить MAG-бан и за что?') ?>
+                </div>
+                <div class="content">
+                  <p>
+                    MAG-бан может получить любой игрок, систематически мешающий другим игрокам, пытающийся нарушить игровой процесс, базовые правила игры или обмануть кого-либо.
+                    Данная блокировка автоматически выдаётся системой на основе жалоб пользователей. При достижении четырёх существенных жалоб &mdash; на неделю, семи &mdash;
+                    на месяц, десяти &mdash; навсегда. Существенность жалобы определяется администратором на основе доказательств и проступка игрока-нарушителя.<br><br>
+                    
+                    <b>Существенные проступки игроков:</b>
+                    <div class="ui bulleted list">
+                      <div class="item">Перевод стрелок под составом.</div>
+                      <div class="item">Нарочное смещение состава физганом.</div>
+                      <div class="item">Грубое нарушение каких-либо правил движения, повлёкшее сбой движения на линии.</div>
+                      <div class="item">Покидание сервера, оставив состав на путях, препядствующий движению.</div>
+                      <div class="item">Нахождение в режиме &laquo;godmode&raquo; на путях, повлёкшее сход состава с рельс.</div>
+                      <div class="item">Изменение положения стрелочного перевода, во время или перед прохождением по нему чужого состава.</div>
+                      <div class="item">Спавн вагонов перед чужим составом, повлёкший столкновение составов или открытие концевиков.</div>
+                      <div class="item">Создание бесполезных и лишённых смысла жалоб на других игроков.</div>
+                      <div class="item">Любое другое поведение, мешающее комфортной игре других игроков на сервере.</div>
+                    </div>
+                    
+                    Будьте вежливы и внимательны во время игры. Зелёных вам светофоров, свободных путей!
+                  </p>
+                </div>
+                <div class="title">
+                  <i class="dropdown icon"></i>
+                  <?php echo _('У меня MAG-бан, как же быть дальше?') ?>
+                </div>
+                <div class="content">
+                  <p>
+                    К сожалению, снять MAG-бан невозможно. Временный &mdash; только по истечению его срока, перманентный &mdash; никогда. Бывали случаи того, что некоторые жалобы были засчитаны ошибочно, но
+                    вероятность того, что все жалобы на вас ошибочные &mdash; ничтожна. Если вы давали кому-либо свой аккаунт и после этого, обнаружили на нём MAG-жалобы, то это сугубо ваши проблемы.
+                    Мы не делаем никаких поблажек на то, что на аккаунте играли не вы, а ваш брат, друг и т.п. Вы должны понимать, что если кто-то с вашего аккаунта мешал другим людям играть, то несёте
+                    ответственность вы и только вы. Вам не ответят, за что была выдана блокировка и не перечислят все жалобы и их авторов. Однако, вы всегда можете играть в одиночной игре или на серверах
+                    с выключенной системой &laquo;Metrostroi Anti-Grief&raquo;.
+                  </p>
+                </div>
+                <div class="title">
+                  <i class="dropdown icon"></i>
+                  <?php echo _('Как правильно оформлять мои MAG-жалобы?') ?>
+                </div>
+                <div class="content">
+                  <p>
+                    Для того, чтобы ваша жалоба была максимально информативна и принята во внимание, вы должны убедится в следующем:
+                    <div class="ui bulleted list">
+                      <div class="item">В вашей жалобе достаточно доказательств.</div>
+                      <div class="item">Человек, который будет читать вашу жалобу поймёт, что произошло.</div>
+                      <div class="item">Вы не отправляли ранее аналогичной жалобы, за то же самое нарушение.</div>
+                      <div class="item">Человек действительно что-то нарушил.</div>
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </div>

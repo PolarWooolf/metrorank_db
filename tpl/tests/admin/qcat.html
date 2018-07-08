@@ -1,0 +1,50 @@
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><i class="setting icon"></i> <?php echo _('Управление тестом') ?></div>
+              
+              <div class="ui container" style="margin-top: 2rem !important;">
+                <form class="ui form" method="post">
+                  <div class="field">
+                    <div class="ui labeled action input">
+                      <div class="ui label">
+                        <?php echo _('Название теста:') ?>
+                      </div>
+                      <input type="text" name="qcname" placeholder="<?php echo _('Название теста...') ?>" value="<?php echo $cat['qcname'] ?>">
+                      <button class="ui primary button" type="submit"><?php echo _('Переименовать') ?></button>
+                    </div>
+                  </div>
+                </form>
+                <table class="ui compact celled definition table">
+                  <tbody>
+                    <?php if ($db->num_rows($questions)) while ($question = $db->fetch_array($questions)) { ?>
+					<tr>
+                      <td class="collapsing">
+                        #<?php echo $c++ ?>
+                      </td>
+                      <td>
+					  <form method="post">
+                        <div class="ui fluid action input">
+						  <input type="hidden" name="qid" value="<?php echo $question['qid'] ?>">
+                          <input type="text" name="question" placeholder="<?php echo _('Содержимое вопроса...') ?>" value="<?php echo htmlspecialchars($question['question']) ?>">
+                          <button type="submit" name="edit" value="1" class="ui primary button"><?php echo _('Изменить') ?></button>
+						  <button type="submit" name="delete" value="1" class="ui compact red button"><i class="trash icon fix"></i></button>
+                        </div>
+                      </td>
+					  </form>
+                    </tr>
+					<?php } ?>
+                  </tbody>
+                  <tfoot class="full-width">
+                    <tr>
+                      <th colspan="2">
+					  <form class="ui form" method="post">
+                        <div class="ui fluid action input">
+                          <input type="text" name="question" placeholder="<?php echo _('Содержимое вопроса...') ?>">
+                          <button type="submit" name="add" value="1" class="ui green button"><?php echo _('Добавить вопрос') ?></button>
+                        </div>
+                      </th>
+					  </form>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>

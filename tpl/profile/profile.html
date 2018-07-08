@@ -1,0 +1,136 @@
+
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><i class="user icon"></i> <?php echo _('Профиль пользователя') ?></div>
+              
+              <div class="ui grid">
+                <div class="five wide column">
+                  <div class="ui segment" style="min-height: 100%;">
+                    <center>
+                      <div>
+                        <img class="ui small circular image" src="<?php echo $pl->take_steam_info("avatar_url") ?>">
+                        <img src="<?php echo $pl->show_rank_icon() ?>" height="44" style="position: absolute; top: 9.2em;">
+                      </div>
+                      <h1 style="margin-top: 0.2em; margin-bottom: 0;"><?php echo htmlspecialchars($pl->take_steam_info("nickname")) ?></h1>
+                      <p style="margin-bottom: 0.5em;"><i class="steam icon fix"></i> <a href="<?php echo ("https://steamcommunity.com/profiles/" . Base::ToCommunityID($pl->steamid())) ?>"><?php echo $pl->steamid() ?></a></p>
+                      <div class="ui middle aligned horizontal list">
+                        <?php if ($pl->take_social_info('vk_id')) { ?><div class="item"><a href="http://vk.com/id<?php echo $pl->take_social_info("vk_id") ?>" target="_blank"><i class="vk icon fix"></i></a></div><?php } ?>
+                        <?php if ($pl->take_social_info('twitter')) { ?><div class="item"><a href="http://twitter.com/<?php echo $pl->take_social_info("twitter") ?>" target="_blank"><i class="twitter icon fix"></i></a></div><?php } ?>
+                        <?php if ($pl->take_social_info('youtube')) { ?><div class="item"><a href="http://youtube.com/channel/<?php echo $pl->take_social_info("youtube") ?>" target="_blank"><i class="youtube icon fix"></i></a></div><?php } ?>
+                        <?php if ($pl->take_social_info('instagram')) { ?><div class="item"><a href="http://instagram.com/<?php echo $pl->take_social_info("instagram") ?>" target="_blank"><i class="instagram icon fix"></i></a></div><?php } ?>
+                        <?php if ($pl->take_social_info('twitch')) { ?><div class="item"><a href="http://twitch.tv/<?php echo $pl->take_social_info("twitch") ?>" target="_blank"><i class="twitch icon fix"></i></a></div><?php } ?>
+                      </div>
+                    </center>
+                  </div>
+                </div>
+                
+                <div class="eleven wide column">
+                  <div class="ui segment" style="min-height: 100%;">
+                    <p>
+                      <?php if ($pl->take_mag_info("mag_reason")) { ?><b style="color: red;"><i class="warning sign icon"></i> <?php echo ($pl->take_mag_info("mag_unban_date"))?"Данный игрок имеет блокировку MAG (истекает: ".date(_("d.m.Y в H:i"), strtotime($pl->take_mag_info("mag_unban_date"))).").":_("Данный игрок имеет перманентную блокировку MAG.")?></b><br><?php } ?>
+                      <?php if ($pl->count_mag_reports()) { ?><b style="color: red;"><i class="info circle icon"></i> <?php echo _('Количество подтверждённых MAG-жалоб:') ?> <?php echo $pl->count_mag_reports()?>.</b><br><?php } ?>
+					  <?php if ($pl->take_mag_info("mag_reason") or $pl->count_mag_reports()) { ?><br><?php } ?>
+                      <?php if ($pl->old_group()) { ?><b style="color: red;"><i class="warning icon"></i> Данный "<?php echo $groups[$pl->old_group()]; ?>" находится в отпуске.</b><br><br><?php } ?>
+					  <?php if ($pl->server_id() != -1) { ?><b><?php echo _('На сервере:') ?> <a <?php if ($servers[$pl->server_id()]['show_for_everyone']) { ?>href="steam://connect/<?php echo $servers[$pl->server_id()]['ip'].':'.$servers[$pl->server_id()]['port']; ?>"<?php } ?>><?php echo htmlspecialchars($servers[$pl->server_id()]['name']);?></a>.</b><br><?php } ?>
+					  <b><?php echo _('Звание:') ?></b> <?php echo $pl->take_group_info("name") ?>.<br>
+                      <?php if ($pl->show_icon()) { ?><b><?php echo _('Отличительные знаки:') ?></b> <?php echo $pl->show_icon(); } ?>
+                      <div class="ui list">
+                        <div class="item"><b><?php echo _('Количество нарушений:') ?></b> <?php $num_violations=$db->fetch_array($db->execute("SELECT COUNT(*) FROM `violations` WHERE  `SID`='{$pl->steamid()}'"))[0];echo $num_violations?$num_violations:_('Нарушений пока-что нет.') ?></div>
+                        <div class="item"><b><?php echo _('Количество сданных экзаменов:') ?></b> <?php $num_exams=$db->fetch_array($db->execute("SELECT COUNT(*) FROM `examinfo`  WHERE `SID`='{$pl->steamid()}' AND `type`='1'"))[0];echo $num_exams?$num_exams:_('Экзаменов ещё не было.') ?></div>
+                        <div class="item"><b><?php echo _('Количество сданных тестов:') ?></b> <?php $num_tests=$db->fetch_array($db->execute("SELECT COUNT(*) FROM `tests_results` WHERE `student`='{$pl->steamid()}' AND `status`>1 AND `passed`>0"))[0];echo $num_tests?$num_tests:_('Тестов не писал.') ?></div>
+                      </div>
+                      <?php if ($pl->take_social_info("about")) { ?><b><?php echo _('О себе:') ?></b> <?php echo nl2br(htmlspecialchars($pl->take_social_info("about"))); } ?>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="ui secondary tabular pointing menu" id="profile-tabs">
+                <a class="active item" data-tab="comments">
+                  <i class="comments outline icon"></i><div id="comments-name"> <?php echo _('Комментарии') ?></div>
+                </a>
+                <a class="item" data-tab="violations">
+                  <i class="warning circle icon"></i><div id="violations-name" style="display: none;"> <?php echo _('Нарушения') ?></div>
+                </a>
+                <a class="item" data-tab="exams">
+                  <i class="book icon"></i><div id="exams-name" style="display: none;"> <?php echo _('Экзамены') ?></div>
+                </a>
+                <a class="item" data-tab="tests">
+                  <i class="checkmark box icon"></i><div id="tests-name" style="display: none;"> <?php echo _('Тесты') ?></div>
+                </a>
+                <a class="item" data-tab="ticket">
+                  <i class="ticket icon"></i><div id="ticket-name" style="display: none;"> <?php echo _('Талон') ?></div>
+                </a>
+				<?php if ($logged_user and $logged_user->take_group_info("statistics")) { ?>
+                <a class="item" data-tab="stats">
+                  <i class="dashboard icon"></i><div id="stats-name" style="display: none;"> Статистика</div>
+                </a>
+				<?php } ?>
+                <div class="right menu">
+                  <?php if ($logged_user and ($logged_user->steamid() != $pl->steamid()) and !$logged_user->take_mag_info("mag_reason")) { ?>
+				  <a class="right aligned item" id="report-lnk">
+                    <i class="warning sign icon"></i> <?php echo _('Жалоба') ?>
+                  </a>
+				  <?php } ?>
+				  <?php if ($logged_user and (($logged_user->steamid() == $pl->steamid()) or $logged_user->take_group_info("admin_panel"))) { ?>
+                  <a class="right aligned item" id="edit-lnk">
+                    <i class="options icon"></i>
+                  </a>
+				  <?php } ?>
+				  <?php if ($logged_user and ($logged_user->take_group_info("tickets") or $logged_user->take_group_info("warn") or $logged_user->take_group_info("change_group") or $logged_user->take_group_info("blacklist_edit") or ((int) $pl->take_coupon_info('num') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) or ($logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Base::$GROUPS_UP_DOWN)))) { ?>
+                  <div class="ui right aligned dropdown item" id="admin-dropdown">
+                    <i class="settings icon"></i>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                      <?php if ($logged_user->take_group_info("warn")) { ?><a class="item" id="violation-add-lnk"><i class="info circle icon"></i> <?php echo _('Добавить нарушение') ?></a><?php } ?>
+                      <?php if ($logged_user->take_group_info("up_down")) { ?><a class="item" id="give-test-lnk"><i class="checkmark box icon"></i> <?php echo _('Выдать тест') ?></a><?php } ?>
+                      <?php if ($logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Base::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Base::$GROUPS_UP_DOWN) != 4) { ?><a class="item" id="promote-lnk"><i class="up arrow icon"></i> <?php echo _('Повысить') ?></a><?php } ?>
+                      <?php if ($logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Base::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Base::$GROUPS_UP_DOWN) != 0) { ?><a class="item" id="demote-lnk"><i class="down arrow icon"></i> <?php echo _('Понизить') ?></a><?php } ?>
+                      <?php if ((int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?><a class="item" id="return-ticket-lnk"><i class="plus circle icon"></i> <?php echo _('Вернуть талон') ?></a><?php } ?>
+                      <?php if ((int) $pl->take_coupon_info('nom') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?><a class="item" id="take-ticket-lnk"><i class="minus circle icon"></i> <?php echo _('Забрать талон') ?></a><?php } ?>
+                      <?php if ($logged_user->take_group_info("change_group")) { ?><a class="item" id="set-rank-lnk"><i class="lightning icon"></i> <?php echo _('Установить ранг') ?></a><?php } ?>
+                      <?php if ($logged_user->take_group_info("admin_panel")) { ?><a class="item" id="give-icon-lnk"><i class="picture icon"></i> <?php echo _('Выдать иконку') ?></a><?php } ?>
+                      <?php if ($logged_user->take_group_info("admin_panel")) { ?><a class="item" id="take-icon-lnk"><i class="picture icon"></i> <?php echo _('Забрать иконку') ?></a><?php } ?>
+                      <?php if ($logged_user->take_group_info("admin_panel")) { ?><a class="item" href="/profile/<?php echo $pl->steamid() ?>/renew"><i class="refresh icon"></i> <?php echo _('Обновить данные') ?></a><?php } ?>
+                      <?php if ($logged_user->take_group_info("tickets")) { ?><a class="item" href="/admin_tickets/<?php echo $pl->steamid() ?>"><i class="ticket icon"></i> <?php echo _('Тикеты') ?></a><?php } ?>
+                    </div>
+                  </div>
+				  <?php } ?>
+                </div>
+              </div>
+              
+            <div class="ui active tab" data-tab="comments">
+			  <?php Comments::ShowComments(1, $pl->uid(), true) ?>
+            </div>
+              
+            <div class="ui tab" data-tab="violations">
+			  <?php echo $pl_warns ?>
+            </div>
+              
+            <div class="ui tab" data-tab="exams">
+              <?php echo $pl_exams ?>
+            </div>
+              
+            <div class="ui tab" data-tab="tests">
+			  <?php echo $pl_tests ?>
+            </div>
+              
+            <div class="ui tab" data-tab="ticket">
+              <div class="ticket">
+                <div class="inner-<?php echo $pl->take_coupon_info("nom")?>">
+                  <h2><?php echo _('ТАЛОН ПРЕДУПРЕЖДЕНИЯ №') ?><?php echo $pl->take_coupon_info("nom")?></h2>
+                  <h3><?php echo _('Машиниста, помощника машиниста') ?></h3>
+                  
+                  <i>
+                    <?php echo $pl->take_steam_info("nickname") ?><br>
+                    <?php echo $pl->steamid() ?>
+                  </i>
+                    
+                  <p style="margin-top: 20px;">
+                    <?php echo _('Выдан: ') ?><?php echo date("H:i:s - d.m.Y", $pl->take_coupon_info("date")) ?><?php if (strlen($pl->take_coupon_info("admin"))) { ?><br>
+					<a href="/profile/<?php echo $pl->take_coupon_info("admin") ?>"><?php echo $pl->take_coupon_info("admin") ?></a>
+					<?php } ?>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>

@@ -1,0 +1,33 @@
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><i class="life ring icon"></i> <?php echo _('Тикеты') ?></div>
+              
+              <div class="ui container" style="margin-top: 2rem !important;">
+                <?php echo _('Здесь вы можете описать любую проблему, баг сайта или задать вопрос, связанный с системой.') ?><br><br>
+
+                <div class="ui bulleted list">
+                  <!--<div class="item">Баги с модом Metrostroi отправляйте <a href="https://github.com/metrostroi-repo/metrostroi_beta/issues">сюда.</a></div>
+                  <div class="item">Баги с дополнением Metadmin отправляйте <a href="https://github.com/HellReach/metadmin/issues">сюда.</a></div>-->
+                  <div class="item"><?php echo _('Чем больше вы напишете тикетов тем позже вам ответят.') ?></div>
+                </div>
+                
+                <form method="post">
+                  <div class="ui form">
+                    <div class="field">
+                      <textarea name="message" placeholder="Текст вашего сообщения&hellip;" style="height: 112px;"></textarea>
+                    </div>
+
+                    <div class="filed">
+                      <div class="ui middle aligned grid">
+                        <div class="eight wide column">
+                          <?php echo _('Максимальная длина сообщения &mdash; 512 символов') ?>
+                        </div>
+
+                        <div class="eight wide column" align="right">
+                          <button class="ui green labeled submit icon button" type="submit"><i class="send icon"></i> <?php echo _('Отправить') ?></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>

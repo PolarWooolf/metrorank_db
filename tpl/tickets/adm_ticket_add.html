@@ -1,0 +1,54 @@
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><i class="life ring icon"></i> <?php echo _('Ответить на тикет') ?></div>
+              
+              <div class="ui container" style="margin-top: 2rem !important;">
+                <center style="margin-bottom: 1.0em;">
+                  <h2 style="margin-bottom: 0.3rem;">Информация об игроке <?php echo htmlspecialchars($pl->take_steam_info('nickname')) ?>:</h2>
+                  <div class="ui middle aligned horizontal list">
+                    <div class="item">
+                      <b>Звание:</b> <?php echo $pl->take_group_info('name') ?>
+                    </div>
+                    <div class="item">
+                      <b>Забанен:</b> <?php echo ($pl->take_ban_info('reason'))? ("Да") :_("Нет") ?>
+                    </div>
+                    <div class="item">
+                      <b>Нарушений:</b> <?php echo ($pl->count_violations())? $pl->count_violations() :_("Нет") ?>
+                    </div>
+                    <div class="item">
+                      <b>Номер талона:</b> <?php echo $pl->take_coupon_info('nom') ?>
+                    </div>
+                    <div class="item">
+                      <b>Жалоб MAG:</b> <?php echo $pl->count_mag_reports() ?>
+                    </div>
+                  </div>
+                </center>
+                
+                <form method="post">
+                  <div class="ui form">
+                    <div class="field">
+                      <textarea name="message" placeholder="Текст вашего сообщения&hellip;" style="height: 112px;"></textarea>
+                    </div>
+
+                    <div class="filed">
+                      <div class="ui middle aligned grid">
+                        <div class="eight wide column">
+                          <?php echo _('Максимальная длина сообщения &mdash; 512 символов') ?>
+                        </div>
+
+                        <div class="eight wide column" align="right">
+                          <button class="ui green labeled submit icon button" type="submit"><i class="send icon"></i> <?php echo _('Отправить') ?></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+			<?php if($pl->take_mag_info("mag_reason"))  { ?>
+            <div class="ui negative message">
+              <div class="header">
+                <?php echo _('Внимание!') ?>
+              </div>
+              <p><?php echo _('Данный игрок заблокирован системой &laquo;MAG&raquo;. Будьте осторожны и бдительны.') ?></p>
+            </div>
+			<?php } ?>

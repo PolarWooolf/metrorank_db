@@ -1,0 +1,6 @@
+                <div class="ui segment">
+                  <div class="ui top attached label">№<?php echo $c ?> | <?php echo _('Дата:') ?> <?php echo date(_("d.m.Y в H:i:s"), $pl_warn['date']) ?> | <?php echo _('Выдал:') ?> <a href="/profile/<?php echo $pl_warn['admin'] ?>" class="blacklink"><?php echo ($pl_warn['nickname'] == null)? $pl_warn['admin']: htmlspecialchars($pl_warn['nickname']) ?></a> | <?php echo _('Сервер:') ?> <?php echo htmlspecialchars((($pl_warn['server_id'] == -1) ? $pl_warn['server'] : $servers[$pl_warn['server_id']]['name'])) ?></div>
+                  <p>
+                    <?php echo nl2br(htmlspecialchars($pl_warn['violation'])) ?>
+                  </p>
+                </div>

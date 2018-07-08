@@ -1,0 +1,23 @@
+    <form class="ui tiny modal" id="take-ticket-modal" method="post">
+      <div class="header">
+        <?php echo _('Забрать талон') ?>
+      </div>
+      <div class="content">
+        <p>
+          <?php echo _('Опишите причину, по которой вы забираете талон. Добавится как нарушение.') ?>
+        </p>
+        <div class="ui form">
+          <div class="field">
+            <textarea name="reason" placeholder="<?php echo _('Введите причину забирания талона...') ?>"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui red deny button">
+          <i class="remove icon"></i> <?php echo _('Отмена') ?>
+        </div>
+        <button type="submit" name="submit" value="tc" class="ui primary icon button">
+          <i class="check icon"></i> <?php echo _('Забрать талон') ?>
+        </button>
+      </div>
+    </form>

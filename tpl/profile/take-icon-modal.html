@@ -1,0 +1,32 @@
+    <form class="ui tiny modal" id="take-icon-modal" method="post">
+      <div class="header">
+        <?php echo _('Забрать иконку') ?>
+      </div>
+      <div class="content">
+        <div class="ui form">
+          <div class="field">
+            <?php echo _('Все иконки пользователя:') ?>
+			<?php foreach($pl->icons() as $key=>$icon) {if ($icon->id == 6) {continue;} echo "<p>$key: " . User::ShowIcon($icon);} ?>
+          </div>
+          <div class="field">
+            <div class="ui fluid search selection dropdown">
+              <input type="hidden" name="icon">
+              <i class="dropdown icon"></i>
+              <div class="default text"><?php echo _('Выберите иконку, которую вы желаете удалить...') ?></div>
+              <div class="menu">
+				<?php foreach($pl->icons() as $key=>$icon) {if ($icon->id == 6) {continue;} echo "<div class=\"item\" data-value=\"$key\">$key: ".((isset($icon->name))? $icon->name: Base::$ICONS[$icon->id]['name'])."</div>";} ?>
+              </div>
+            </div>
+          </div>
+        </div>
+		<input type="hidden" name="reason" value="123">
+      </div>
+      <div class="actions">
+        <div class="ui red deny button">
+          <i class="remove icon"></i> <?php echo _('Отмена') ?>
+        </div>
+        <button type="submit" name="submit" value="remove_icon" class="ui primary icon button">
+          <i class="check icon"></i> <?php echo _('Забрать иконку') ?>
+        </button>
+      </div>
+    </form>

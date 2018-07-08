@@ -1,0 +1,23 @@
+    <form class="ui tiny modal" id="violation-add-modal" method="post">
+      <div class="header">
+        <?php echo _('Добавить нарушение') ?>
+      </div>
+      <div class="content">
+        <p>
+          <?php echo _('Обращаем внимание, что для того, чтобы отобрать талон, закройте это окно и выберите пункт &laquo;Забрать талон&raquo;.') ?>
+        </p>
+        <div class="ui form">
+          <div class="field">
+            <textarea name="reason" placeholder="<?php echo _('Опишите нарушение пользователя...') ?>"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui red deny button">
+          <i class="remove icon"></i> <?php echo _('Отмена') ?>
+        </div>
+        <button type="submit" name="submit" value="warn" class="ui primary icon button">
+          <i class="check icon"></i> <?php echo _('Добавить нарушение') ?>
+        </button>
+      </div>
+    </form>

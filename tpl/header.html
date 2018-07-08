@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Metrostroi &raquo; <?php echo $page_fucking_title?></title>
+
+    <link rel="stylesheet" href="/dist/semantic4.css" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@2.0.4/dist/tippy.all.min.js"></script>
+    <script src="/dist/semantic.js"></script>
+    <!--<script src="/kek"></script>-->
+	<link rel="stylesheet" href="https://atomiks.github.io/tippyjs/tippy/themes.css" type="text/css">
+	<?php if ($lnk[0] == 'servers') { ?>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+	<?php } ?>
+	<link rel="stylesheet" href="/tpl/css/style2.css" type="text/css">
+	<style>
+      .ui.search > .results > .message .header:before {
+        visibility: visible;
+        content: '<?php echo _('Нет совпадений') ?>';
+      }
+	</style>
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+		<?php if ($logged_user) {?>_paq.push(["setUserId","<?php echo $logged_user->steamid() ?>"]);
+<?php } ?>
+        (function() {
+            var u="//anal.metrostroi.net/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+  </head>
+
+  <body style="display: flex; min-height: 100vh; flex-direction: column;">
+    <div class="ui container" style="flex: 1;">
+      <div class="ui fixed inverted menu">
+        <div class="ui container">
+          <?php echo $menu->show('menu', $show_login) ?>
+        </div>
+      </div>
+      <div class="ui main container">
+        <div class="ui stackable grid">
+          <div class="five wide column">

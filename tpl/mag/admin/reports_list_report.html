@@ -1,0 +1,32 @@
+
+                <div class="ui segment">
+                  <div class="ui left aligned grid">
+                    <div class="three wide column">
+                      <div class="item"><img class="ui small circular image" src="<?php echo $report['avatar_url']?>"></div>
+                    </div>
+                    
+                    <div class="thirteen wide column">
+                      <div class="ui middle aligned grid">
+                        <div class="eleven wide column"><div class="ui red small horizontal label"><?php echo $report['reports_amount'] ?></div> <b><a href="/profile/<?php echo $report['mag_badpl']?>" class="blacklink"><?php echo htmlspecialchars($report['nickname'])?></a></b> &raquo; <?php echo date(_("d.m.Y в H:i:s"), strtotime($report['mag_rdate'])) ?></div>
+                        <div class="five wide column" align="right">
+                          <div class="ui horizontal list">
+                            <div class="item">
+                              #<?php echo $report['mag_rid']?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="ui divider" style="margin: 0.2em 0 0.2em 0;"></div>
+                      
+                      <span>
+                        <?php echo nl2br(htmlspecialchars($report['mag_reason']))?>
+                      </span>
+                      
+                      <a class="ui compact primary right labeled icon button" href="/admin_mag/<?php echo $report['mag_badpl']?>" style="margin-top: 0.5em;display: table-caption;">
+                        <i class="long arrow right icon"></i>
+                        <?php echo _('Перейти') ?>
+                      </a>
+                    </div>
+                  </div>
+                </div>

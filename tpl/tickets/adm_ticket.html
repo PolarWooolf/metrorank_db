@@ -1,0 +1,66 @@
+
+                <div class="ui segment">
+                  <div class="ui left aligned grid">
+                    <div class="three wide column">
+                      <div class="item"><img class="ui small circular image" src="<?php echo $ticket['avatar_url']?>"></div>
+                    </div>
+                    
+                    <div class="thirteen wide column">
+                      <div class="ui middle aligned grid">
+                        <div class="eleven wide column"><?php echo $status ?> <b><a href="/profile/<?php echo $ticket['written']?>" class="blacklink"><?php echo htmlspecialchars($ticket['nickname'])?></a></b> &raquo; <?php echo date(_("d.m.Y в H:i:s"), strtotime($ticket['date'])) ?></div>
+                        <div class="five wide column" align="right">
+                          <div class="ui horizontal list">
+                            <div class="item">
+							  <?php if (!$ticket['viewed']) { ?><div class="ui small green horizontal label"><?php echo _('Новый') ?></div><?php }?>
+                              #<?php echo $ticket['tid']?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="ui divider" style="margin: 0.2em 0 0.2em 0;"></div>
+                      
+                      <span>
+                        <?php echo nl2br(htmlspecialchars($ticket['text']))?>
+                      </span>
+                      <form method="post">
+                        <input type="hidden" name="id" value="<?php echo $ticket['tid']?>">
+                        <div class="ui middle aligned horizontal list" style="margin-top: 0.5rem; display: block;">
+					      <?php if ($ticket['type'] != 4) { ?>
+                          <div class="item">
+                            <div class="ui mini buttons">
+                              <button type="submit" name="status" value="0" class="ui compact primary icon button">
+                                <i class="eye icon"></i>
+                                <?php echo _('Непрочитано') ?>
+                              </button>
+                              <button type="submit" name="status" value="1" class="ui compact yellow icon button">
+                                <i class="eye icon"></i>
+                                <?php echo _('Прочитано') ?>
+                              </button>
+                            </div>
+                          </div>
+                        
+                          <div class="item">
+                            <div class="ui mini buttons">
+                              <button type="submit" name="status" value="2" class="ui compact green icon button">
+                                <i class="check icon"></i>
+                                <?php echo _('Закрыто') ?>
+                              </button>
+                              <button type="submit" name="status" value="3" class="ui compact red icon button">
+                                <i class="remove icon"></i>
+                                <?php echo _('Отклонено') ?>
+                              </button>
+                            </div>
+                          </div>
+                          <?php } ?>
+                          <div class="item">
+                            <button type="submit" name="delete" value="delete" class="ui compact mini red icon button">
+                              <i class="trash icon"></i>
+                              <?php echo _('Удалить') ?>
+                            </button>
+                          </div>
+                        </div>
+					  </form>
+                    </div>
+                  </div>
+                </div>
